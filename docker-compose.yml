@@ -1,0 +1,33 @@
+
+services:
+  db:
+    container_name: postgres_lovely
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: muse
+      POSTGRES_PASSWORD: password
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: lovely
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/data/postgres
+    networks:
+      - lovely
+  redis:
+    container_name: redis_lovely
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data/redis
+
+networks:
+  lovely:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local
+  redis-data:

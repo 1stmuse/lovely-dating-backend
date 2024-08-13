@@ -3,6 +3,8 @@ package com.muse.lovely.users;
 import com.muse.lovely.profile.Profile;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +17,8 @@ import java.util.HashSet;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "_users")
+@Builder
+@Data
 public class User implements UserDetails, Principal {
 
     @Id
@@ -23,7 +27,12 @@ public class User implements UserDetails, Principal {
 
     @Column(unique = true)
     private String email;
+
+    @Column(unique = true)
+    private String phoneNumber;
     private String password;
+
+    private boolean verified;
 
     @OneToOne(mappedBy = "user")
     private Profile profile;
@@ -66,6 +75,6 @@ public class User implements UserDetails, Principal {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return verified;
     }
 }

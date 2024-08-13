@@ -3,6 +3,7 @@ package com.muse.lovely.WebsecurityConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
+@Slf4j
 public class JwtService {
 
     @Value("${application.security.jwt.secret-key}")
@@ -42,6 +44,7 @@ public class JwtService {
     }
 
     private Key getSignInKey() {
+
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
@@ -75,8 +78,6 @@ public class JwtService {
         final String email = extractUsername(jwt);
         return (email.equals(userDetails.getUsername())) && !isTokenExpired(jwt);
     }
-
-
 
 
 }

@@ -10,7 +10,7 @@ import java.time.Duration;
 @RequiredArgsConstructor
 public class RedisService {
 
-    private RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     public void saveItem(String key, String value){
         redisTemplate.opsForValue().set(key, value, Duration.ofMinutes(10));

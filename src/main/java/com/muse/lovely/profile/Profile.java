@@ -1,5 +1,6 @@
 package com.muse.lovely.profile;
 
+import com.muse.lovely.gallery.Gallery;
 import com.muse.lovely.users.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,9 @@ public class Profile {
 
     @OneToOne
     private User user;
+
+    @OneToOne
+    private Gallery gallery;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

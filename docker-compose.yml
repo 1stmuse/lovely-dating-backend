@@ -23,6 +23,13 @@ services:
     volumes:
       - redis-data:/data/redis
 
+  mail-dev:
+    container_name: mail-dev-lovely
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+
 networks:
   lovely:
     driver: bridge

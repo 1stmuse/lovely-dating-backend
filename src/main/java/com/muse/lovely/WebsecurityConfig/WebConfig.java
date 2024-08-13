@@ -8,6 +8,8 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -27,13 +29,13 @@ public class WebConfig {
     ) throws Exception{
 
         http.cors( corss -> corss.disable())
-                .csrf(Customizer.withDefaults())
-                .authenticationProvider(authenticationProvider)
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(re -> re.requestMatchers(
-                        "/h2-console/**",
-                        "/api/v1/auth"
+                        "/auth/**",
+                        "/h2-console/**"
                 ).permitAll().anyRequest().authenticated())
-//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                .authenticationProvider(authenticationProvider)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
                 return http.build();
     }

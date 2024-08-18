@@ -62,8 +62,6 @@ public class AuthService {
     public ResponseEntity<GlobalResponse> register(RegisterUserRequest request) throws BadRequestException, MessagingException {
 
         var user = userRepository.findByEmail(request.getEmail());
-
-
         if(user.isPresent()){
             throw new BadRequestException("User with this email already exist");
         }
@@ -77,7 +75,6 @@ public class AuthService {
         var otp = Util.generateOtp(6);
         mailService.sendMail("Lovely Email Verification", request.getEmail(), otp);
         redisService.saveItem(request.getEmail() + "otp", otp);
-
 
         return ResponseEntity.ok(
                 GlobalResponse.builder()

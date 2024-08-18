@@ -1,4 +1,4 @@
-package com.muse.lovely.profile;
+package com.muse.lovely.profile.requestModels;
 
 import lombok.*;
 
@@ -14,4 +14,5 @@ public class CreateProfileRequestBody {
     private Date dateOfBirth;
     private String profilePicture;
     private String occupation;
+
 }

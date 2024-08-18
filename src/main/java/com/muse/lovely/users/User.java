@@ -75,6 +75,6 @@ public class User implements UserDetails, Principal {
 
     @Override
     public boolean isEnabled() {
-        return verified;
+        return true;
     }
 }
